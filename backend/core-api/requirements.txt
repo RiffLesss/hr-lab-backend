@@ -1,0 +1,17 @@
+django
+django-filter
+djangorestframework
+dj_database_url
+drf-spectacular
+psycopg2-binary
+pyjwt
+djangorestframework-simplejwt
+pandas
+xlrd
+django-cors-headers
+openpyxl
+authlib
+setuptools
+requests
+django-phonenumber-field
+phonenumbers
