@@ -69,7 +69,6 @@ INSTALLED_APPS = [
     'hrlab.project',
     'hrlab.jobopen',
     'hrlab.laboratory',
-    'hrlab.manager'
 
 ]
 

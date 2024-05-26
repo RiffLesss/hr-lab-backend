@@ -39,11 +39,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     project_experience = models.CharField(max_length=600, blank=True, null=True)
 
-    cv_link = models.CharField(max_length=600)
+    cv_link = models.CharField(max_length=600, blank=True, null=True)
 
     email = models.EmailField(unique=True)
 
     phone = PhoneNumberField()
+
+    position = models.CharField(max_length=400, blank=True, null=True)
 
     is_staff = models.BooleanField(
         default=False,
