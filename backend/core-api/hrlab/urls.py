@@ -22,9 +22,12 @@ from hrlab import settings
 from hrlab.api import urls as api
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include((api, "api"), namespace="api")),
+
 ]
 
 if settings.BACKEND_ENV in (settings.LOCAL, settings.STAGE):
