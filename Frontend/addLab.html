@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создание профиля лаборатории</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Создание профиля лаборатории</h1>
+    </header>
+    <main>
+        <form action="submit_lab_profile.php" method="post">
+            <label for="lab_name">Название лаборатории:</label>
+            <input type="text" id="lab_name" name="lab_name" required>
+
+            <label for="lab_link">Ссылка на страницу лаборатории на сайте ВШЭ:</label>
+            <input type="url" id="lab_link" name="lab_link" required>
+
+            <fieldset>
+                <legend>Сведения о руководителе лаборатории</legend>
+
+                <label for="head_name">ФИО:</label>
+                <input type="text" id="head_name" name="head_name" required>
+
+                <label for="head_position">Должность:</label>
+                <input type="text" id="head_position" name="head_position" required>
+
+                <label for="head_contacts">Контакты:</label>
+                <textarea id="head_contacts" name="head_contacts" required></textarea>
+            </fieldset>
+
+            <fieldset>
+                <legend>Портфель проектов лаборатории</legend>
+
+                <h3>Активные проекты</h3>
+                <!--<div id="active_projects">
+                    <div class="project">
+                       <label for="active_project_name_1">Название проекта:</label>
+                       <input type="text" id="active_project_name_1" name="active_project_name[]" required>
+
+                       <label for="active_project_description_1">Описание проекта:</label>
+                      <textarea id="active_project_description_1" name="active_project_description[]"
+                            required></textarea>
+                    </div>
+                </div>
+                <button type="button" onclick="addActiveProject()">Добавить активный проект</button>
+--->
+                <h3>Архивные проекты</h3><!--
+                <div id="archived_projects">
+                    <div class="project">
+                        <label for="archived_project_name_1">Название проекта:</label>
+                        <input type="text" id="archived_project_name_1" name="archived_project_name[]" required>
+
+                        <label for="archived_project_description_1">Описание проекта:</label>
+                        <textarea id="archived_project_description_1" name="archived_project_description[]"
+                            required></textarea>
+                    </div>
+                </div>
+                <button type="button" onclick="addArchivedProject()">Добавить архивный проект</button>
+                --->
+            </fieldset>
+
+            <fieldset>
+                <legend>Создание нового проекта</legend>
+
+                <label for="new_project_name">Название проекта:</label>
+                <input type="text" id="new_project_name" name="new_project_name" required>
+
+                <label for="new_project_leader">Руководитель проекта:</label>
+                <input type="text" id="new_project_leader" name="new_project_leader" required>
+
+                <label for="new_project_budget">Бюджет проекта:</label>
+                <input type="text" id="new_project_budget" name="new_project_budget" required>
+
+                <label for="new_project_dates">Сроки реализации проекта:</label>
+                <input type="text" id="new_project_dates" name="new_project_dates" required>
+
+                <label for="new_project_results">Ожидаемые результаты проекта:</label>
+                <textarea id="new_project_results" name="new_project_results" required></textarea>
+
+                <label for="new_project_plan">План проекта (описание, ход реализации и т.п.):</label>
+                <textarea id="new_project_plan" name="new_project_plan" required></textarea>
+
+                <fieldset id="vacancies">
+                    <legend>Список вакансий проекта</legend>
+                    <div class="vacancy">
+                        <label for="vacancy_name_1">Название вакансии:</label>
+                        <input type="text" id="vacancy_name_1" name="vacancy_name[]" required>
+
+                        <label for="vacancy_requirements_1">Обязательные требования:</label>
+                        <textarea id="vacancy_requirements_1" name="vacancy_requirements[]" required></textarea>
+
+                        <label for="vacancy_preferences_1">Желательные требования:</label>
+                        <textarea id="vacancy_preferences_1" name="vacancy_preferences[]" required></textarea>
+
+                        <label for="vacancy_financial_1">Финансовая составляющая:</label>
+                        <input type="text" id="vacancy_financial_1" name="vacancy_financial[]" required>
+                    </div>
+                </fieldset>
+                <button type="button" onclick="addVacancy()">Добавить вакансию</button>
+
+                <label for="new_project_application_deadline">Сроки подачи заявок на проект:</label>
+                <input type="text" id="new_project_application_deadline" name="new_project_application_deadline"
+                    required>
+
+                <button type="submit">Создать проект</button>
+
+                <input type="hidden" name="new_project_application_results" value="inactive">
+                <input type="hidden" name="new_project_materials" value="inactive">
+            </fieldset>
+
+            <button type="submit">Создать профиль</button>
+        </form>
+    </main>
+    <script>
+        let activeProjectCount = 1;
+        let archivedProjectCount = 1;
+        let vacancyCount = 1;
+
+        function addActiveProject() {
+            activeProjectCount++;
+            const activeProjectsDiv = document.getElementById('active_projects');
+            const newProjectDiv = document.createElement('div');
+            newProjectDiv.classList.add('project');
+            newProjectDiv.innerHTML = `
+                <label for="active_project_name_${activeProjectCount}">Название проекта:</label>
+                <input type="text" id="active_project_name_${activeProjectCount}" name="active_project_name[]" required>
+
+                <label for="active_project_description_${activeProjectCount}">Описание проекта:</label>
+                <textarea id="active_project_description_${activeProjectCount}" name="active_project_description[]" required></textarea>
+            `;
+            activeProjectsDiv.appendChild(newProjectDiv);
+        }
+
+        function addArchivedProject() {
+            archivedProjectCount++;
+            const archivedProjectsDiv = document.getElementById('archived_projects');
+            const newProjectDiv = document.createElement('div');
+            newProjectDiv.classList.add('project');
+            newProjectDiv.innerHTML = `
+                <label for="archived_project_name_${archivedProjectCount}">Название проекта:</label>
+                <input type="text" id="archived_project_name_${archivedProjectCount}" name="archived_project_name[]" required>
+
+                <label for="archived_project_description_${archivedProjectCount}">Описание проекта:</label>
+                <textarea id="archived_project_description_${archivedProjectCount}" name="archived_project_description[]" required></textarea>
+            `;
+            archivedProjectsDiv.appendChild(newProjectDiv);
+        }
+
+        function addVacancy() {
+            vacancyCount++;
+            const vacanciesFieldset = document.getElementById('vacancies');
+            const newVacancyDiv = document.createElement('div');
+            newVacancyDiv.classList.add('vacancy');
+            newVacancyDiv.innerHTML = `
+                <label for="vacancy_name_${vacancyCount}">Название вакансии:</label>
+                <input type="text" id="vacancy_name_${vacancyCount}" name="vacancy_name[]" required>
+
+                <label for="vacancy_requirements_${vacancyCount}">Обязательные требования:</label>
+                <textarea id="vacancy_requirements_${vacancyCount}" name="vacancy_requirements[]" required></textarea>
+
+                <label for="vacancy_preferences_${vacancyCount}">Желательные требования:</label>
+                <textarea id="vacancy_preferences_${vacancyCount}" name="vacancy_preferences[]" required></textarea>
+
+                <label for="vacancy_financial_${vacancyCount}">Финансовая составляющая:</label>
+                <input type="text" id="vacancy_financial_${vacancyCount}" name="vacancy_financial[]" required>
+            `;
+            vacanciesFieldset.appendChild(newVacancyDiv);
+
+        }
+        function toggleVacancyDetails(vacancyId) {
+            const detailsDiv = document.getElementById(`vacancy_details_${vacancyId}`);
+            if (detailsDiv.classList.contains('hidden')) {
+                detailsDiv.classList.remove('hidden');
+            } else {
+                detailsDiv.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>

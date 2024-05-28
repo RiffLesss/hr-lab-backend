@@ -38,10 +38,10 @@ if BACKEND_ENV in (LOCAL, STAGE):
 else:
     DEBUG = False
 
-# estimated domain name
-# ALLOWED_HOSTS = ['*']
-# CSRF_TRUSTED_ORIGINS = ['https://hr-lab.hse.ru']
-# CORS_ALLOW_ALL_ORIGINS = True
+#estimated domain name
+ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1:8000']
+CORS_ALLOW_ALL_ORIGINS = True
 
 if BACKEND_ENV == LOCAL:
     ROOT_TO_TEMPLATES = 'backend/coreapi/templates/'
@@ -228,6 +228,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
