@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Регистрация и вход</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1>Регистрация и вход</h1>
+  <button id="login-btn">Войти</button>
+  <button id="register-btn">Зарегистрироваться</button>
+  <div id="log-form" style="display: none;">
+    <form method="post" id="login-form">
+      <div class="form-group">
+          <label for="login">Login:</label>
+          <input type="text" class="form-control" id="login" name="login" required>
+      </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+  </div>
+  <div id="register-form" style="display: none;">
+    <form method="post" id="registration-form">
+     <div class="form-group">
+         <label for="login">Login:</label>
+         <input type="text" class="form-control" id="login1" name="login" required>
+     </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password1" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="first_name">First Name:</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" required>
+        </div>
+        <div class="form-group">
+            <label for="last_name">Last Name:</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" required>
+        </div>
+        <div class="form-group">
+            <label for="middle_name">Middle Name:</label>
+            <input type="text" class="form-control" id="middle_name" name="middle_name">
+        </div>
+        <div class="form-group">
+            <label for="education">Education:</label>
+            <input type="text" class="form-control" id="education" name="education">
+        </div>
+        <div class="form-group">
+            <label for="work_experience">Work Experience:</label>
+            <input type="text" class="form-control" id="work_experience" name="work_experience">
+        </div>
+        <div class="form-group">
+            <label for="project_experience">Project Experience:</label>
+            <input type="text" class="form-control" id="project_experience" name="project_experience">
+        </div>
+        <div class="form-group">
+            <label for="cv_link">CV Link:</label>
+            <input type="text" class="form-control" id="cv_link" name="cv_link">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="tel" class="form-control" id="phone" name="phone">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Register</button>
+    </form>
+  </div>
+  <script>
+    const loginBtn = document.getElementById('login-btn');
+    const registerBtn = document.getElementById('register-btn');
+    const loginForm = document.getElementById('log-form');
+    const registerForm = document.getElementById('register-form');
+
+    loginBtn.addEventListener('click', () => {
+      loginForm.style.display = 'block';
+      registerForm.style.display = 'none';
+    });
+
+    registerBtn.addEventListener('click', () => {
+      loginForm.style.display = 'none';
+      registerForm.style.display = 'block';
+    });
+
+    $('#login-form').submit(function(event) {
+      event.preventDefault();
+      var formData = $(this).serialize();
+      $.ajax({
+        type: 'POST',
+        url: 'http://127.0.0.1:8000/api/v1/auth/sign_in/',
+        data: formData,
+        success: function(response) {
+
+          alert('Logged in successfully!');
+          localStorage.setItem("isLoggedIn", "true");
+
+           //Перенаправляем на другую страницу
+           window.location.href = "addLab.html";
+        },
+        error: function(xhr, status, error) {
+          alert('Login failed. Please try again.');
+        }
+      });
+    });
+    //var isLoggedIn = localStorage.getItem("isLoggedIn");
+
+            // Если пользователь залогинен, перенаправляем его на другую страницу
+            //if (isLoggedIn === "true") {
+           // }
+       // });
+
+    $('#registration-form').submit(function(event) {
+      event.preventDefault();
+      var formData = $(this).serialize();
+      $.ajax({
+        type: 'POST',
+        url: 'http://127.0.0.1:8000/api/v1/auth/register/',
+        data: formData,
+        success: function(response) {
+          alert('Registered successfully!');
+          localStorage.setItem("isLoggedIn", "true");
+          window.location.href = "addLab.html";
+        },
+        error: function(xhr, status, error) {
+          alert('Registration failed. Please try again.');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
